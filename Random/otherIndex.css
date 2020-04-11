@@ -1,0 +1,27 @@
+input[type=text] {
+    color: red;
+}
+
+input[type=button] {
+    color: green;
+}
+
+#input_data {
+    width: 300px;
+}
+
+.input_elements {
+    height: 60px;
+}
+
+input[type=button].input_elements {
+    background-color: yellow;
+}
+
+#myDiv input[type=button].input_elements {
+    margin-left: 20px;
+}
+
+#myDiv #myOtherDiv input {
+    
+}

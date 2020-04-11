@@ -1,0 +1,18 @@
+.header_data {
+    margin: 5px;
+    padding: 10px;
+    font-style: italic;
+}
+
+#headerData {
+    color: red;
+}
+
+#otherHeaderData {
+    color: yellow;
+    border: 1px dotted grey;
+}
+
+div {
+    color: slateblue;
+}
