@@ -1,12 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import EmployeeList from "./components/EmployeeList";
+import UsingObjectInState from "./components/UsingObjectInState";
 
-ReactDOM.render(<EmployeeList></EmployeeList>, document.getElementById("root"))
-
-
-
-
-
+ReactDOM.render(<UsingObjectInState></UsingObjectInState>, document.getElementById("root"))
 
