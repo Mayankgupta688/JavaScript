@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import EmployeeListData from "./EmployeeListData";
 
 function getEmployees() {
     return [
@@ -115,9 +116,24 @@ export default function EmployeeList() {
         if(emp.name.indexOf(event.target.value) > -1) {
           return true;
         }
+
+        return false;
       })
 
       setEmployeeFilterList(filteredList)
+    }
+
+    function deleteEmployee(event) {
+      debugger;
+      var deletedArray = employeeList.filter(function(emp) {
+        if(emp.id == event.target.id) {
+          return false;
+        }
+        return true;
+      })
+
+      setEmployeeList(deletedArray);
+      setEmployeeFilterList(deletedArray);
     }
 
     return (
@@ -129,7 +145,7 @@ export default function EmployeeList() {
 
             <div style={{"border": "1px solid black", "marginBottom": "10px", "marginLeft": "10px"}}>
 
-              <h1>{empDetails.id}</h1>
+              <h1>Next Id: {empDetails.id}</h1>
 
               <b style={{"width": "150px", "display": "inline-block", "marginLeft": "10px", "marginTop": "5px"}}>Enter Name: </b>
               <input type="text" id="name" value={empDetails.name} onChange={updateEmployeeData} /><br/><br/>
@@ -146,9 +162,7 @@ export default function EmployeeList() {
             {employeeFilterList.map(function(emp, index) {
                 return (
                   <div key={index}>
-                    <img src={emp.avatar} />
-                    <h1>Employee Name: {emp.name}</h1>
-                    <h2>Employee Created At: {emp.createdAt}</h2><hr/>
+                    <EmployeeListData employee={emp} deleteEmployee={deleteEmployee} ></EmployeeListData>
                   </div>
                 )
             })}
