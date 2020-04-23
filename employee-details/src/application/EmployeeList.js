@@ -1,69 +1,8 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import EmployeeListData from "./EmployeeListData";
 
-function getEmployees() {
-    return [
-        {
-        "id": "1",
-        "createdAt": "2018-12-03T11:37:42.015Z",
-        "name": "Ms. Gaylord Streich",
-        "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/jagan123/128.jpg"
-      },
-      {
-        "id": "2",
-        "createdAt": "2018-12-02T21:06:49.825Z",
-        "name": "Roxanne Kunde",
-        "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/chaabane_wail/128.jpg"
-      },
-      {
-        "id": "3",
-        "createdAt": "2018-12-03T03:37:39.995Z",
-        "name": "Dante Spencer",
-        "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/moscoz/128.jpg"
-      },
-      {
-        "id": "4",
-        "createdAt": "2018-12-03T11:07:34.261Z",
-        "name": "Benny Hartmann",
-        "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/abdots/128.jpg"
-      },
-      {
-        "id": "5",
-        "createdAt": "2018-12-03T11:38:36.583Z",
-        "name": "Easton Fisher",
-        "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/brenton_clarke/128.jpg"
-      },
-      {
-        "id": "6",
-        "createdAt": "2018-12-02T17:48:52.784Z",
-        "name": "Mrs. Brandi Grant",
-        "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/g3d/128.jpg"
-      },
-      {
-        "id": "7",
-        "createdAt": "2018-12-02T17:57:35.899Z",
-        "name": "Leopoldo Ortiz",
-        "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/aoimedia/128.jpg"
-      },
-      {
-        "id": "8",
-        "createdAt": "2018-12-03T06:31:54.963Z",
-        "name": "Marielle Zulauf",
-        "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/jjshaw14/128.jpg"
-      },
-      {
-        "id": "9",
-        "createdAt": "2018-12-03T00:28:30.136Z",
-        "name": "Maynard Hilll",
-        "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/danro/128.jpg"
-      },
-      {
-        "id": "10",
-        "createdAt": "2018-12-03T13:42:04.578Z",
-        "name": "Jovanny Dare",
-        "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/s4f1/128.jpg"
-      }]
-}
+
 
 export default function EmployeeList() {
 
@@ -80,12 +19,20 @@ export default function EmployeeList() {
     });
 
     useEffect(function() {
-        var empList = getEmployees();
-        setEmployeeList(empList)
-        setEmployeeFilterList(empList)
-        setEmpDetails({
-          ...empDetails,
-          id: empList.length + 1
+
+        axios.get("http://5c055de56b84ee00137d25a0.mockapi.io/api/v1/employees").then(function(res) {
+          debugger;
+          var empList = res.data;
+          setEmployeeList(empList)
+          setEmployeeFilterList(empList)
+          setEmpDetails({
+            ...empDetails,
+            id: empList.length + 1
+          })
+        })  
+
+        axios.get("localhost:8000", function(res) {
+          debugger;
         })
     }, [])
 
@@ -140,7 +87,7 @@ export default function EmployeeList() {
         <div>
 
             <h1>Filter Data</h1>
-            <input type="text" value={filterData} onChange={filterEmployeeList} />
+              <input type="text" value={filterData} onChange={filterEmployeeList} />
             <br/><br/>
 
             <div style={{"border": "1px solid black", "marginBottom": "10px", "marginLeft": "10px"}}>
