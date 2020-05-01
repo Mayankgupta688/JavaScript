@@ -20,8 +20,9 @@ export default function EmployeeList() {
 
     useEffect(function() {
 
-        axios.get("http://5c055de56b84ee00137d25a0.mockapi.io/api/v1/employees").then(function(res) {
-          debugger;
+        var returnPromise = axios.get("http://localhost:8000/data")
+        
+        returnPromise.then(function(res) {
           var empList = res.data;
           setEmployeeList(empList)
           setEmployeeFilterList(empList)
@@ -29,11 +30,10 @@ export default function EmployeeList() {
             ...empDetails,
             id: empList.length + 1
           })
+        }, function() {
+          console.log("Promise Rejection...")
         })  
 
-        axios.get("localhost:8000", function(res) {
-          debugger;
-        })
     }, [])
 
     function addEmployee() {
@@ -90,21 +90,21 @@ export default function EmployeeList() {
               <input type="text" value={filterData} onChange={filterEmployeeList} />
             <br/><br/>
 
-            <div style={{"border": "1px solid black", "marginBottom": "10px", "marginLeft": "10px"}}>
+            <form method="post" action="http://localhost:8000/postdata" style={{"border": "1px solid black", "marginBottom": "10px", "marginLeft": "10px"}}>
 
               <h1>Next Id: {empDetails.id}</h1>
 
               <b style={{"width": "150px", "display": "inline-block", "marginLeft": "10px", "marginTop": "5px"}}>Enter Name: </b>
-              <input type="text" id="name" value={empDetails.name} onChange={updateEmployeeData} /><br/><br/>
+              <input type="text" id="name" value={empDetails.name} onChange={updateEmployeeData} name="userName" /><br/><br/>
 
               <b style={{"width": "150px", "display": "inline-block", "marginLeft": "10px", "marginTop": "5px"}}>Enter Created At: </b>
-              <input type="text" id="createdAt" value={empDetails.createdAt} onChange={updateEmployeeData} /><br/><br/>
+              <input type="text" id="createdAt" value={empDetails.createdAt} onChange={updateEmployeeData} name="userCreatedAt"/><br/><br/>
 
               <b style={{"width": "150px", "display": "inline-block", "marginLeft": "10px", "marginTop": "5px"}}>Enter Avatar: </b>
-              <input type="text" id="avatar" value={empDetails.avatar} onChange={updateEmployeeData} /><br/><br/>
+              <input type="text" id="avatar" value={empDetails.avatar} onChange={updateEmployeeData} name="userAvatar" /><br/><br/>
 
-              <input style={{"marginLeft": "10px"}} type="button" value="Add Employee" onClick={addEmployee} /><br/><br/>
-            </div>
+              <input style={{"marginLeft": "10px"}} type="submit" value="Add Employee" /><br/><br/>
+            </form>
 
             {employeeFilterList.map(function(emp, index) {
                 return (
